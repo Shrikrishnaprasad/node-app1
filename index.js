@@ -109,5 +109,5 @@ app.get("/poll/content/:search", async (request, response) => {
   });
   response.send(res);
 });
-
+console.log("...");
 app.listen(PORT, () => console.log("The server is started in: ", PORT));
