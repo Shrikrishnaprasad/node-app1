@@ -3,11 +3,12 @@ import express from "express";
 import jwt from "jsonwebtoken";
 import { getUser, getUsers, insertUser } from "../helper.js";
 import { createConnection } from "../index.js";
+import { auth } from "../middleware/auth.js";
 
 const router = express.Router();
 
 // get all users
-router.route("/").get(async (request, response) => {
+router.route("/").get(auth, async (request, response) => {
   const client = await createConnection();
   const contestants = await getUsers(client, {});
   response.send(contestants);

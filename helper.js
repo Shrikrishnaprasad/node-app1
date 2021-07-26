@@ -52,7 +52,7 @@ export async function patchPoll(client, polls) {
     .db("contestants")
     .collection("poll")
     .updateOne(polls);
-  console.log("Inserted Successfully", result);
+  console.log("Updated Successfully", result);
   return result;
 }
 
