@@ -6,7 +6,7 @@ import {
   getPollById,
   getPollByName,
   getPollByColor,
-  patchPoll,
+  updatePoll,
 } from "../helper.js";
 import { createConnection } from "../index.js";
 import { auth } from "../middleware/auth.js";
@@ -26,14 +26,8 @@ router
     // request -> parse json (body,post,put,patch) -> request.body
     const res = await insertPoll(client, polls);
     response.send(res);
-  })
-  .patch(auth, async (request, response) => {
-    const client = await createConnection();
-    const polls = request.body;
-    // request -> parse json (body,post,put,patch) -> request.body
-    const res = await patchPoll(client, polls);
-    response.send(res);
   });
+
 router
   .route("/:id")
   .delete(auth, async (request, response) => {
@@ -48,6 +42,14 @@ router
     const client = await createConnection();
     const res = await getPollById(client, +id);
     //const res = poll.filter((data) => data.id === id);
+    response.send(res);
+  })
+  .patch(auth, async (request, response) => {
+    const id = request.params.id;
+    const client = await createConnection();
+    const newPoll = request.body;
+    // request -> parse json (body,post,put,patch) -> request.body
+    const res = await updatePoll(client, +id, newPoll);
     response.send(res);
   });
 router.get("/name/:company", auth, async (request, response) => {

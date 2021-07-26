@@ -47,11 +47,11 @@ export async function insertPoll(client, polls) {
   console.log("Inserted Successfully", result);
   return result;
 }
-export async function patchPoll(client, polls) {
+export async function updatePoll(client, id, newPoll) {
   const result = await client
     .db("contestants")
     .collection("poll")
-    .updateOne(polls);
+    .updateOne({ id: id }, { $set: newPoll });
   console.log("Updated Successfully", result);
   return result;
 }

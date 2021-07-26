@@ -1,6 +1,7 @@
 import express from "express";
 import { MongoClient } from "mongodb";
 import dotenv from "dotenv";
+import cors from "cors";
 import { pollRouter } from "./routes/poll.js";
 import { userRouter } from "./routes/user.js";
 const app = express();
@@ -9,6 +10,7 @@ const PORT = process.env.PORT;
 // loaded in process.env (like process.argv)
 
 app.use(express.json());
+app.use(cors());
 // parse it as JSON for POST
 // request -> parse json (body,post,put,patch) -> request.body
 
