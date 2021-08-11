@@ -16,7 +16,7 @@ router.route("/").get(auth, async (request, response) => {
 
 // user password - create a user
 router.route("/signup").post(async (request, response) => {
-  const { username, password } = request.body;
+  const { username, password, phone, email } = request.body;
   //console.log(username, password);
   const client = await createConnection();
   // checking for user exists
@@ -29,6 +29,8 @@ router.route("/signup").post(async (request, response) => {
     const newUser = await insertUser(client, {
       username: username,
       password: hashedPassword,
+      phone: phone,
+      email: email,
     });
     // console.log(hashedPassword, newUser);
     response.send(newUser);
