@@ -43,14 +43,26 @@ router.route("/signup").post(async (request, response) => {
 router.route("/login").post(async (request, response) => {
   const { username, password } = request.body;
   const client = await createConnection();
-  const user = await getUser(client, { username: username });
-  const inDbStorePassword = user.password;
-  const isPasswordMatch = await bcrypt.compare(password, inDbStorePassword);
-  if (isPasswordMatch) {
-    const token = jwt.sign({ id: user._id }, process.env.SECERET_KEY);
-    response.send({ message: "Successfull login", token: token });
+  const user = await getUser(client, { email: username });
+
+  if (!user) {
+    response.send({
+      message: "User not exists, Please Sign Up ! ",
+      username: "",
+    });
   } else {
-    response.send({ message: "Invalid login" });
+    const inDbStorePassword = user.password;
+    const isPasswordMatch = await bcrypt.compare(password, inDbStorePassword);
+    if (isPasswordMatch) {
+      const token = jwt.sign({ id: user._id }, process.env.SECERET_KEY);
+      response.send({
+        message: "Successfull login",
+        token: token,
+        username: user.username,
+      });
+    } else {
+      response.send({ message: "Invalid login" });
+    }
   }
 });
 
