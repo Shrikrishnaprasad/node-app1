@@ -58,7 +58,7 @@ router.route("/login").post(async (request, response) => {
       response.send({
         message: "Successfull login",
         token: token,
-        username: user.username,
+        user: user,
       });
     } else {
       response.send({ message: "Invalid login" });

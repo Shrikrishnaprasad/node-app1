@@ -5,6 +5,7 @@ import cors from "cors";
 import { pollRouter } from "./routes/poll.js";
 import { userRouter } from "./routes/user.js";
 import { productRouter } from "./routes/product.js";
+import { contactRouter } from "./routes/contact.js";
 const app = express();
 dotenv.config();
 const PORT = process.env.PORT;
@@ -33,6 +34,8 @@ app.get("/", (request, response) => {
 app.use("/poll", pollRouter);
 app.use("/user", userRouter);
 app.use("/product", productRouter);
+app.use("/contact", contactRouter);
+
 app.listen(PORT, () => console.log("The server is started in: ", PORT));
 
 // npm run dev -> to start the server

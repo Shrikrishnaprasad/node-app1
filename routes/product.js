@@ -13,7 +13,7 @@ const router = express.Router();
 
 router
   .route("/")
-  .get(auth, async (request, response) => {
+  .get(async (request, response) => {
     const client = await createConnection();
     const res = await getProducts(client, {});
     response.send(res);
@@ -44,14 +44,14 @@ router
     const res = await deleteProductById(client, id);
     response.send(res);
   })
-  .get(auth, async (request, response) => {
+  .get(async (request, response) => {
     //const id = JSON.parse(request.params.id);
     const id = request.params.id;
     const client = await createConnection();
     const res = await getProductById(client, id);
     response.send(res);
   })
-  .put(auth, async (request, response) => {
+  .put(async (request, response) => {
     const id = request.params.id;
     const client = await createConnection();
     const newProduct = request.body;
