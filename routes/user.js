@@ -20,7 +20,7 @@ router.route("/signup").post(async (request, response) => {
   //console.log(username, password);
   const client = await createConnection();
   // checking for user exists
-  const user = await getUser(client, { username: username });
+  const user = await getUser(client, { email: email });
   //console.log(user);
   if (user) {
     response.send({ message: "User already exists !" });
@@ -33,7 +33,7 @@ router.route("/signup").post(async (request, response) => {
       email: email,
     });
     // console.log(hashedPassword, newUser);
-    response.send(newUser);
+    response.send({ newUser, message: "User added !" });
   }
 });
 
